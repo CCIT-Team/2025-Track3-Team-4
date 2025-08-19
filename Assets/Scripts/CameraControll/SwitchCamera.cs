@@ -28,19 +28,20 @@ public class SwitchCamera : MonoBehaviour
     private IEnumerator MoveToNewCamera()
     {
         _isFollowing = true;
-        while(true)
+        while (true)
         {
             _dt += Time.fixedDeltaTime;
             float nowStep = _dt / _moveTime;
+            transform.position = Vector3.Lerp(transform.position, _nowFllowingTarget.transform.position, nowStep);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _nowFllowingTarget.transform.rotation, nowStep);
             if (nowStep >= 1)
             {
                 break;
             }
-            transform.position = Vector3.Lerp(transform.position, _nowFllowingTarget.transform.position, nowStep);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _nowFllowingTarget.transform.rotation, nowStep);
             yield return null;
         }
         _isFollowing = false;
+        transform.SetParent(_nowFllowingTarget.transform);
     }
 
     public void SwitchToFollwingCamera()
