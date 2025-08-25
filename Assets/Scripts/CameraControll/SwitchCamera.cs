@@ -6,6 +6,9 @@ public class SwitchCamera : MonoBehaviour
     [SerializeField]
     private GameObject[] _targets = null;
 
+    [SerializeField]
+    private TextChanger _nowCamTextChanger;
+
     private GameObject _nowFllowingTarget;
 
     private float _dt = 0;
@@ -47,6 +50,7 @@ public class SwitchCamera : MonoBehaviour
     public void SwitchToFollwingCamera()
     {
         _dt = 0;
+        _nowCamTextChanger.SetText(_nowFllowingTarget.name);
         if (_isFollowing == false)
         {
             StartCoroutine(MoveToNewCamera());
